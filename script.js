@@ -13,5 +13,22 @@ let currentTime = INITIAL_TIME;
 initGame();
 initEvents();
 
-function initGame() {}
+function initGame() {
+  words = TEXT.split(" ").slice(0, 32);
+  currentTime = INITIAL_TIME;
+
+  $time.textContent = currentTime;
+
+  $paragraph.innerHTML = words
+    .map((word, index) => {
+      const letters = word.split("");
+
+      return `<x-word>
+			${letters.map((letter) => `<x-letter>${letter}</x-letter>`).join("")}
+		</x-word>
+		`;
+    })
+    .join("");
+}
+
 function initEvents() {}
