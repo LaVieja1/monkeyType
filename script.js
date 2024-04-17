@@ -29,6 +29,20 @@ function initGame() {
 		`;
     })
     .join("");
+
+  const intervalId = setInterval(() => {
+    currentTime--;
+    $time.textContent = currentTime;
+
+    if (currentTime === 0) {
+      clearInterval(intervalId);
+      gameOver();
+    }
+  }, 1000);
 }
 
 function initEvents() {}
+
+function gameOver() {
+  console.log("game over");
+}

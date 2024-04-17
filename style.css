@@ -20,7 +20,7 @@ section {
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   max-width: 500px;
 }
 
@@ -41,4 +41,5 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 3px 6px;
+  margin: 0;
 }
