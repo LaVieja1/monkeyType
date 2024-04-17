@@ -23,12 +23,16 @@ function initGame() {
     .map((word, index) => {
       const letters = word.split("");
 
-      return `<x-word>
-			${letters.map((letter) => `<x-letter>${letter}</x-letter>`).join("")}
-		</x-word>
+      return `<word>
+			${letters.map((letter) => `<letter>${letter}</letter>`).join("")}
+		</word>
 		`;
     })
     .join("");
+
+  const $firstWord = $paragraph.querySelector("word");
+  $firstWord.classList.add("active");
+  $firstWord.querySelector("letter").classList.add("active");
 
   const intervalId = setInterval(() => {
     currentTime--;
