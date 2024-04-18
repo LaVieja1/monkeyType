@@ -45,7 +45,39 @@ function initGame() {
   }, 1000);
 }
 
-function initEvents() {}
+function initEvents() {
+  document.addEventListener("keydown", () => {
+    $input.focus();
+  });
+  $input.addEventListener("keydown", onkeydown);
+  $input.addEventListener("keyup", onKeyUp);
+}
+
+function onKeyDown() {}
+function onKeyUp() {
+  // recuperamos los elementos actuales
+  const $currentWord = $paragraph.querySelector("word.active");
+  const $currentLetter = $currentWord.querySelector("letter.active");
+
+  const currentWord = $currentWord.innerText.trim();
+  $input.maxLength = currentWord.length;
+  console.log({ value: $input.value, currentWord });
+
+  const $allLetters = $currentWord.querySelectorAll("letter");
+
+  $allLetters.forEach(($letter) =>
+    $letter.classList.remove("correct", "incorrect")
+  );
+
+  $input.value.split("").forEach((char, index) => {
+    const $letter = $allLetters[index];
+    const letterToCheck = currentWord[index];
+
+    const isCorrect = char === letterToCheck;
+    const letterClass = isCorrect ? "correct" : "incorrect";
+    $letter.classList.add(letterClass);
+  });
+}
 
 function gameOver() {
   console.log("game over");
