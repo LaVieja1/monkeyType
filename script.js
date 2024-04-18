@@ -49,11 +49,31 @@ function initEvents() {
   document.addEventListener("keydown", () => {
     $input.focus();
   });
-  $input.addEventListener("keydown", onkeydown);
+  $input.addEventListener("keydown", onKeyDown);
   $input.addEventListener("keyup", onKeyUp);
 }
 
-function onKeyDown() {}
+function onKeyDown(event) {
+  const $currentWord = $paragraph.querySelector("word.active");
+  const $currentLetter = $currentWord.querySelector("letter.active");
+
+  const { key } = event;
+  if (key === " ") {
+    event.preventDefault();
+
+    const $nextWord = $currentWord.nextElementSibling;
+    const $nextLetter = $nextWord.querySelector("letter");
+
+    $currentWord.classList.remove("active");
+    $currentLetter.classList.remove("active");
+
+    $nextWord.classList.add("active");
+    $nextLetter.classList.add("active");
+
+    $input.value = "";
+  }
+}
+
 function onKeyUp() {
   // recuperamos los elementos actuales
   const $currentWord = $paragraph.querySelector("word.active");
