@@ -77,6 +77,17 @@ function onKeyUp() {
     const letterClass = isCorrect ? "correct" : "incorrect";
     $letter.classList.add(letterClass);
   });
+
+  $currentLetter.classList.remove("active", "is-last");
+  const inputLength = $input.value.length;
+  const $nextActiveLetter = $allLetters[inputLength];
+
+  if ($nextActiveLetter) {
+    $nextActiveLetter.classList.add("active");
+  } else {
+    $currentLetter.classList.add("active", "is-last");
+    // TODO: gameover si no hay proxima palabra
+  }
 }
 
 function gameOver() {
