@@ -1,11 +1,14 @@
-$time = document.querySelector("time");
-$paragraph = document.querySelector("p");
-$input = document.querySelector("input");
+import { words as INITIAL_WORDS } from "./data.js";
 
-const INITIAL_TIME = 30;
+const $time = document.querySelector("time");
+const $paragraph = document.querySelector("p");
+const $input = document.querySelector("input");
+const $game = document.querySelector("#game");
+const $results = document.querySelector("#results");
+const $wpm = $results.querySelector("#results-wpm");
+const $accuracy = $results.querySelector("#results-accuracy");
 
-const TEXT =
-  "the quick brown fox jumps over the lazy dog and the lazy dog jumps over the quick brown fox";
+const INITIAL_TIME = 3;
 
 let words = [];
 let currentTime = INITIAL_TIME;
@@ -14,7 +17,7 @@ initGame();
 initEvents();
 
 function initGame() {
-  words = TEXT.split(" ").slice(0, 32);
+  words = INITIAL_WORDS.toSorted(() => Math.random() - 0.5).slice(0, 32);
   currentTime = INITIAL_TIME;
 
   $time.textContent = currentTime;
@@ -149,5 +152,19 @@ function onKeyUp() {
 }
 
 function gameOver() {
-  console.log("game over");
+  $game.style.display = "none";
+  $results.style.display = "flex";
+
+  const correctWords = $paragraph.querySelectorAll("word.correct").length;
+  const correctLetter = $paragraph.querySelectorAll("letter.correct").length;
+  const incorrectLetter =
+    $paragraph.querySelectorAll("letter.incorrect").length;
+
+  const totalLetters = correctLetter + incorrectLetter;
+
+  const acurracy = totalLetters > 0 ? (correctLetter / totalLetters) * 100 : 0;
+
+  const wpm = (correctWords * 60) / INITIAL_TIME;
+  $wpm.textContent = wpm;
+  $accuracy.textContent = `${acurracy.toFixed(2)}%`;
 }
