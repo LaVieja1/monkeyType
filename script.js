@@ -77,6 +77,38 @@ function onKeyDown(event) {
 
     const classToAdd = hasMissedLetters ? "marked" : "correct";
     $currentWord.classList.add(classToAdd);
+    return;
+  }
+
+  if (key === "Backspace") {
+    const $prevWord = $currentWord.previousElementSibling;
+    const $prevLetter = $currentLetter.previousElementSibling;
+
+    if (!$prevWord && !$prevLetter) {
+      event.preventDefault();
+      return;
+    }
+
+    const $wordMarked = $paragraph.querySelector("word.marked");
+
+    if ($wordMarked && !$prevLetter) {
+      event.preventDefault();
+      $prevWord.classList.remove("marked");
+      $prevWord.classList.add("active");
+
+      const $letterToGo = $prevWord.querySelector("letter:last-child");
+
+      $currentLetter.classList.remove("active");
+      $letterToGo.classList.add("active");
+
+      $input.value = [
+        ...$prevWord.querySelectorAll("letter.correct, letter.incorrect"),
+      ]
+        .map(($el) => {
+          return $el.classList.contains("correct") ? $el.innerText : "*";
+        })
+        .join("");
+    }
   }
 }
 
