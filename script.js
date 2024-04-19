@@ -7,8 +7,9 @@ const $game = document.querySelector("#game");
 const $results = document.querySelector("#results");
 const $wpm = $results.querySelector("#results-wpm");
 const $accuracy = $results.querySelector("#results-accuracy");
+const $button = document.querySelector("#reload-button");
 
-const INITIAL_TIME = 3;
+const INITIAL_TIME = 30;
 
 let words = [];
 let currentTime = INITIAL_TIME;
@@ -17,6 +18,10 @@ initGame();
 initEvents();
 
 function initGame() {
+  $game.style.display = "flex";
+  $results.style.display = "none";
+  $input.value = "";
+
   words = INITIAL_WORDS.toSorted(() => Math.random() - 0.5).slice(0, 32);
   currentTime = INITIAL_TIME;
 
@@ -54,6 +59,7 @@ function initEvents() {
   });
   $input.addEventListener("keydown", onKeyDown);
   $input.addEventListener("keyup", onKeyUp);
+  $button.addEventListener("click", initGame);
 }
 
 function onKeyDown(event) {
@@ -122,7 +128,6 @@ function onKeyUp() {
 
   const currentWord = $currentWord.innerText.trim();
   $input.maxLength = currentWord.length;
-  console.log({ value: $input.value, currentWord });
 
   const $allLetters = $currentWord.querySelectorAll("letter");
 
