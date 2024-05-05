@@ -6,3 +6,4 @@ Clon de la app MonkeyType usando solo Javascript.
 
 - Hacer menú para elegir dificultad.
 - Arreglar el accuracy.
+- Mejorar la animación del cursor.
